@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Material de referência da empresa (inclui a página salva do Instagram).
+    "docs/**",
   ]),
 ]);
 
