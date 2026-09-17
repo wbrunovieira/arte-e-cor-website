@@ -4,7 +4,7 @@ export const SITE = {
   legalName: "Arte e Cor Tintas LTDA",
   cnpj: "49.699.801/0001-86",
   // Domínio ainda não definido; ajuste NEXT_PUBLIC_SITE_URL no deploy.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://arteecorpetropolis.com.br",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://arteecortintas.com.br",
   description:
     "Tintas imobiliárias e automotivas, acessórios de pintura e ferragens em Petrópolis/RJ. Peça pelo WhatsApp com entrega grátis.",
   whatsapp: { display: "(24) 98865-1692", number: "5524988651692" },

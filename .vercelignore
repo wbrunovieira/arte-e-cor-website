@@ -1,0 +1,4 @@
+# material interno (estudo da empresa, capturas, página salva do Instagram): não vai para a Vercel
+/docs
+/.claude
+*.tsbuildinfo

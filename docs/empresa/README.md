@@ -140,8 +140,8 @@ Cores do logo medidas na vetorização: marinho `#1e5491`, azul-claro `#268dca`,
 ## 9. Presença digital e concorrência de nome
 
 - Não há site. O Google Meu Negócio pede um.
-- **Conflito de nome:** `arteecortintas.com.br` e `@tintasartecoroficial` são de outra "Arte e Cor Tintas", aparentemente do interior de São Paulo.
-  - O domínio precisa diferenciar, por exemplo `arteecorpetropolis.com.br`.
+- **Conflito de nome:** `@tintasartecoroficial` é de outra "Arte e Cor Tintas", aparentemente do interior de São Paulo.
+  - O domínio `arteecortintas.com.br` estava livre e foi registrado em 17/09/2026.
   - O SEO precisa amarrar sempre "Arte e Cor" + "Petrópolis".
 - **Contexto local:** Petrópolis fica na serra, com clima úmido e chuvoso. Impermeabilizantes, anti-mofo e tinta para exterior são temas naturais de conteúdo.
 

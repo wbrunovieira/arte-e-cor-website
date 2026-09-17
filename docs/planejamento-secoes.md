@@ -243,7 +243,7 @@ O padrão dos azulejos da fachada pode virar um detalhe gráfico discreto no sit
   - foco visível no teclado;
   - textos alternativos nas imagens;
   - animações desligadas para quem prefere movimento reduzido.
-- **Domínio:** evitar confusão com `arteecortintas.com.br` (outra empresa). Sugestões: `arteecorpetropolis.com.br` ou `arteecortintaspetropolis.com.br`.
+- **Domínio:** `arteecortintas.com.br`, registrado em 17/09/2026 no Registro.br. DNS na Cloudflare e hospedagem na Vercel.
 
 ---
 
