@@ -32,11 +32,9 @@ export function Numeros() {
 
         <dl className="mt-16 grid grid-cols-2 gap-x-6 gap-y-12 md:gap-x-8 md:mt-28 lg:grid-cols-4">
           {NUMEROS.map((n, i) => (
-            <Reveal key={n.legenda} delay={i * 0.08}>
-              <div className="flex flex-col-reverse border-t border-ink/10 pt-7">
-                <dt className="mt-3 text-base text-muted md:text-lg">{n.legenda}</dt>
-                <dd className="font-display text-[clamp(3.5rem,6vw,5.5rem)] font-semibold leading-none tracking-[-0.035em]">{n.valor}</dd>
-              </div>
+            <Reveal key={n.legenda} delay={i * 0.08} className="flex flex-col-reverse border-t border-ink/10 pt-7">
+              <dt className="mt-3 text-base text-muted md:text-lg">{n.legenda}</dt>
+              <dd className="font-display text-[clamp(3.5rem,6vw,5.5rem)] font-semibold leading-none tracking-[-0.035em]">{n.valor}</dd>
             </Reveal>
           ))}
         </dl>

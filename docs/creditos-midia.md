@@ -14,7 +14,7 @@ Montagem de 12,6s (1280x720, sem áudio) feita com trechos de três vídeos do *
 
 Pôster: primeiro quadro da montagem (`public/video/hero-poster.jpg`).
 
-## Casa do simulador de cores (`public/simulador/casa.jpg`)
+## Casa do simulador de cores (`public/simulador/casa.webp`)
 
 - Foto de **Julia Taubitz** no Unsplash (licença Unsplash: uso comercial permitido, atribuição opcional).
 - Página: https://unsplash.com/photos/a-colorful-house-stands-on-a-city-street-2d7_Jgq6re4

@@ -10,12 +10,15 @@ import fachadaRua from "@/assets/img/fachada-rua.jpg";
 
 function Linha({ icon, titulo, children }: { icon: ReactNode; titulo: string; children: ReactNode }) {
   return (
-    <div className="flex gap-4 py-4">
-      <span className="mt-0.5 text-brand">{icon}</span>
-      <div>
-        <dt className="text-sm text-muted">{titulo}</dt>
-        <dd className="mt-0.5 leading-relaxed">{children}</dd>
-      </div>
+    // Só dt e dd dentro do div, como o <dl> exige; o ícone fica dentro do dt.
+    <div className="relative py-4 pl-10">
+      <dt className="text-sm text-muted">
+        <span aria-hidden className="absolute left-0 top-[1.125rem] text-brand">
+          {icon}
+        </span>
+        {titulo}
+      </dt>
+      <dd className="mt-0.5 leading-relaxed">{children}</dd>
     </div>
   );
 }

@@ -16,12 +16,22 @@ import { SITE } from "@/lib/site";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HardwareStore",
+  "@id": `${SITE.url}/#loja`,
   name: SITE.name,
   legalName: SITE.legalName,
   description: SITE.description,
   url: SITE.url,
-  image: `${SITE.url}/brand/logo-icone.png`,
+  logo: `${SITE.url}/brand/logo-icone.png`,
+  image: [`${SITE.url}/opengraph-image.jpg`, `${SITE.url}/brand/logo-icone.png`],
   telephone: "+55 24 2242-7228",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: `+${SITE.whatsapp.number}`,
+    areaServed: "BR",
+    availableLanguage: "Portuguese",
+  },
+  hasMap: SITE.mapsUrl,
   address: {
     "@type": "PostalAddress",
     streetAddress: SITE.address.street,
@@ -40,6 +50,7 @@ const jsonLd = {
   ],
   areaServed: { "@type": "City", name: "Petrópolis" },
   paymentAccepted: "Cartão de crédito",
+  currenciesAccepted: "BRL",
   sameAs: [SITE.instagram, SITE.facebook],
 };
 

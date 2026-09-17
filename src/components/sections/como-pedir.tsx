@@ -37,10 +37,21 @@ function Passo({ icon: Icone, titulo, texto, ultimo }: (typeof PASSOS)[number] &
       >
         <Icone weight="light" className="size-7 md:size-8" aria-hidden />
       </span>
-      <motion.div animate={{ opacity: ativo ? 1 : 0.35 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
-        <h3 className="font-display text-4xl font-semibold tracking-[-0.035em] md:text-6xl">{titulo}</h3>
-        <p className="mt-4 max-w-[42ch] text-lg leading-relaxed text-muted md:text-xl">{texto}</p>
-      </motion.div>
+      {/* Opacidades mínimas calculadas para manter o contraste AA nos dois temas: 3:1 no título e 4,5:1 no texto. */}
+      <motion.h3
+        animate={{ opacity: ativo ? 1 : 0.55 }}
+        transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+        className="font-display text-4xl font-semibold tracking-[-0.035em] md:text-6xl"
+      >
+        {titulo}
+      </motion.h3>
+      <motion.p
+        animate={{ opacity: ativo ? 1 : 0.9 }}
+        transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+        className="mt-4 max-w-[42ch] text-lg leading-relaxed text-muted md:text-xl"
+      >
+        {texto}
+      </motion.p>
     </li>
   );
 }

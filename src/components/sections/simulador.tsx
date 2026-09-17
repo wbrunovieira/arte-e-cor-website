@@ -32,7 +32,7 @@ const SUGESTOES: Cor[] = [
   { nome: "Grafite", hex: "#3D4148" },
 ];
 
-const EXEMPLO = { foto: "/simulador/casa.jpg", mascara: "/simulador/casa-mask.png" };
+const EXEMPLO = { foto: "/simulador/casa.webp", mascara: "/simulador/casa-mask.png" };
 const EASE = [0.32, 0.72, 0, 1] as const;
 
 function nomeDaCor(hex: string) {
@@ -96,6 +96,8 @@ export function Simulador() {
   const depoisRef = useRef<HTMLCanvasElement>(null);
   const arrastando = useRef(false);
   const inView = useInView(areaRef, { once: true, amount: 0.4 });
+  // A casa de exemplo só é baixada quando o simulador chega perto da tela.
+  const perto = useInView(areaRef, { once: true, margin: "800px 0px" });
 
   const [fonte, setFonte] = useState<"exemplo" | "foto">("exemplo");
   const [pixels, setPixels] = useState<ImageData | null>(null);
@@ -110,7 +112,7 @@ export function Simulador() {
 
   // Casa de exemplo: foto + máscara das paredes preparadas.
   useEffect(() => {
-    if (fonte !== "exemplo") return;
+    if (fonte !== "exemplo" || !perto) return;
     let ativo = true;
     (async () => {
       const px = await loadPixels(EXEMPLO.foto, 1400);
@@ -124,7 +126,7 @@ export function Simulador() {
     return () => {
       ativo = false;
     };
-  }, [fonte]);
+  }, [fonte, perto]);
 
   const mascara = useMemo(() => {
     if (!pixels) return null;

@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { StarIcon } from "@phosphor-icons/react";
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { DirectionsButton, WhatsAppButton } from "@/components/cta";
 import { HeroBadge } from "@/components/open-status";
 import { PaintedWord } from "@/components/painted-word";
@@ -38,6 +39,7 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const visible = useInView(sectionRef, { amount: 0.05 });
+  const [tocando, setTocando] = useState(false);
 
   // Um rolo na cor de destaque "pinta" o vídeo na tela ao carregar.
   const progress = useMotionValue(reduce ? 1 : 0);
@@ -62,28 +64,50 @@ export function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (visible && !reduce) video.play().catch(() => {});
-    else video.pause();
+    // Com economia de dados ligada, fica só a foto: o vídeo tem mais de 1 MB.
+    const economia = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    if (!visible || reduce || economia) {
+      video.pause();
+      return;
+    }
+    // O vídeo só começa a baixar depois do load, para não disputar banda com a foto e as fontes.
+    const tocar = () => video.play().catch(() => {});
+    if (document.readyState === "complete") {
+      tocar();
+      return;
+    }
+    window.addEventListener("load", tocar, { once: true });
+    return () => window.removeEventListener("load", tocar);
   }, [visible, reduce]);
 
   return (
     <section ref={sectionRef} id="topo" className="relative px-2 pt-2 md:px-3 md:pt-3">
       <div className="relative isolate flex min-h-[calc(100svh-0.5rem)] flex-col overflow-hidden rounded-[1.75rem] bg-band text-[#f3f5f9] md:min-h-[calc(100svh-0.75rem)] md:rounded-[2.5rem]">
+        {/* A foto em cinza aparece no primeiro paint (é o LCP) e o rolo pinta a cor por cima dela. */}
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <Image src="/video/hero-poster.jpg" alt="" fill sizes="100vw" loading="eager" fetchPriority="high" className="object-cover brightness-75 grayscale" />
+        </div>
+
         <motion.div aria-hidden style={{ clipPath }} className="absolute inset-0 -z-10">
-          <motion.video
-            ref={videoRef}
-            style={{ scale: videoScale }}
-            className="h-full w-full object-cover"
-            src="/video/hero.mp4"
-            poster="/video/hero-poster.jpg"
-            muted
-            loop
-            playsInline
-            preload="auto"
-          />
+          <motion.div style={{ scale: videoScale }} className="absolute inset-0">
+            <Image src="/video/hero-poster.jpg" alt="" fill sizes="100vw" loading="eager" className="object-cover" />
+            <video
+              ref={videoRef}
+              onPlaying={() => setTocando(true)}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${tocando ? "opacity-100" : "opacity-0"}`}
+              src="/video/hero.mp4"
+              muted
+              loop
+              playsInline
+              preload="none"
+            />
+          </motion.div>
+        </motion.div>
+
+        <div aria-hidden className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-linear-to-t from-[#061122] via-[#061122]/55 to-[#061122]/15" />
           <div className="absolute inset-0 bg-linear-to-r from-[#061122]/75 via-[#061122]/15 to-transparent" />
-        </motion.div>
+        </div>
 
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <motion.div style={{ x: rollerX, opacity: rollerOpacity }} className="absolute inset-y-0 left-0 w-full">
