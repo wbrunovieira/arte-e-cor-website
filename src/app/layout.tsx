@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    url: "/",
     locale: "pt_BR",
     siteName: SITE.name,
     title: "Arte e Cor Tintas e Ferragens | Petrópolis",

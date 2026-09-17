@@ -26,3 +26,8 @@ Pôster: primeiro quadro da montagem (`public/video/hero-poster.jpg`).
 - Fotos de produtos: posts do Instagram @arteecortintas.petropolis (imagens de fornecedores, como Atlas).
 - Fachada (`src/assets/img/fachada*.jpg`): capturas do Google Street View, só para a apresentação. **Substituir por fotos próprias antes de publicar.**
 - Logo: vetorizado a partir de imagens do Instagram. **Pedir o arquivo original à cliente.**
+
+## Imagem de compartilhamento (`src/app/opengraph-image.jpg`)
+
+- Arte montada em HTML e renderizada no Chrome em 1200x630: logo, fontes do site (Bricolage Grotesque e Outfit, Google Fonts, licença OFL) e a foto `src/assets/img/tintas-latas.jpg` (imagem de fornecedor dos posts do Instagram da loja).
+- Substituiu a captura da fachada do Street View.
