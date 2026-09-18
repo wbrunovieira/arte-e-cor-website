@@ -25,6 +25,9 @@ export const SITE = {
     "https://www.google.com/maps/search/?api=1&query=Arte+e+Cor+Tintas+e+Ferragens+Rua+Coronel+Veiga+183+Petr%C3%B3polis",
   directionsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=Arte+e+Cor+Tintas+e+Ferragens,+Rua+Coronel+Veiga,+183,+Petr%C3%B3polis+-+RJ",
+  // waze.com/ul abre o app no celular e o site no computador; q= usa o endereço porque
+  // não temos as coordenadas exatas da loja.
+  wazeUrl: "https://waze.com/ul?q=Rua%20Coronel%20Veiga%2C%20183%2C%20Petr%C3%B3polis%20-%20RJ&navigate=yes",
   mapEmbedUrl:
     "https://www.google.com/maps?q=Rua+Coronel+Veiga,+183,+Petr%C3%B3polis+-+RJ,+25655-151&z=17&output=embed",
 } as const;

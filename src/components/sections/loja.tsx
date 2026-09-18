@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ClockIcon, CreditCardIcon, MapPinIcon, PhoneIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
 import type { ReactNode } from "react";
-import { DirectionsButton, WhatsAppButton } from "@/components/cta";
+import { GoogleMapsButton, WazeButton } from "@/components/mapas";
 import { OpenStatus } from "@/components/open-status";
 import { Reveal } from "@/components/reveal";
 import { Bezel, Eyebrow, SectionTitle } from "@/components/ui";
@@ -98,8 +98,8 @@ export function Loja() {
                 </dl>
 
                 <div className="mt-auto flex flex-wrap gap-3 pt-6">
-                  <DirectionsButton />
-                  <WhatsAppButton message="Olá! Quero tirar uma dúvida antes de ir até a loja." />
+                  <GoogleMapsButton />
+                  <WazeButton />
                 </div>
               </div>
             </Bezel>
