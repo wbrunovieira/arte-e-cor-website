@@ -89,7 +89,9 @@ Frases que a própria empresa repete (voz da marca):
 
 **Promoções já feitas:** Eucatex Peg&Pinte por R$ 199 com entrega grátis; campanha Sherwin-Williams "Paleta da Sorte" (cupom a cada R$ 150 para concorrer a uma moto 0 km).
 
-**Não sabemos:** se fazem tinta na cor (máquina tintométrica), formas de pagamento, pedido mínimo e raio da entrega grátis. **(confirmar, porque são decisivos para o site)**
+**Confirmado em 18/09/2026:** a loja faz tinta na cor com máquina tintométrica **Suvinil**, e o simulador do site usa cores do catálogo Suvinil.
+
+**Não sabemos:** formas de pagamento, pedido mínimo e raio da entrega grátis. **(confirmar, porque são decisivos para o site)**
 
 ## 7. Instagram: conteúdo e comunicação
 

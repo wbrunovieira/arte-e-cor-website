@@ -20,16 +20,16 @@ import { floodSelect, loadMask, loadPixels, mergeRegion, parseHex, recolor, toHe
 type Cor = { nome: string; hex: string };
 type Ponto = { x: number; y: number };
 
-// Nomes ilustrativos; o código oficial de cada cor é o do catálogo da marca.
+// Cores do catálogo Suvinil, a marca da máquina tintométrica da loja.
+// Os valores são a referência em tela de cada cor; o tom final sai da máquina.
 const SUGESTOES: Cor[] = [
-  { nome: "Verde Serra", hex: "#4F7552" },
-  { nome: "Azul Imperial", hex: "#2E5A9C" },
-  { nome: "Terracota", hex: "#B65A3D" },
-  { nome: "Amarelo Canário", hex: "#E9BB3B" },
-  { nome: "Rosa Quartzo", hex: "#D79AA6" },
-  { nome: "Cinza Névoa", hex: "#9AA3AD" },
-  { nome: "Branco Gelo", hex: "#ECEEEA" },
-  { nome: "Grafite", hex: "#3D4148" },
+  { nome: "Algodão Egípcio", hex: "#EAE3D5" },
+  { nome: "Rosa-queimado", hex: "#D0A993" },
+  { nome: "Tijolo", hex: "#C16C45" },
+  { nome: "Amarelo Real", hex: "#F9D428" },
+  { nome: "Verde-catamarã", hex: "#B2CFC5" },
+  { nome: "Azul-polar", hex: "#C6D7E5" },
+  { nome: "Azul-petróleo", hex: "#0A747C" },
 ];
 
 const EXEMPLO = { foto: "/simulador/casa.webp", mascara: "/simulador/casa-mask.png" };
@@ -43,7 +43,7 @@ function Leque({ cor, onChange }: { cor: Cor; onChange: (c: Cor) => void }) {
   const meio = (SUGESTOES.length - 1) / 2;
   return (
     <>
-      <div role="radiogroup" aria-label="Cores sugeridas" className="relative mx-auto hidden h-[21rem] w-full max-w-2xl md:block">
+      <div role="radiogroup" aria-label="Cores Suvinil sugeridas" className="relative mx-auto hidden h-[21rem] w-full max-w-2xl md:block">
         {SUGESTOES.map((c, i) => {
           const ativo = c.hex === cor.hex;
           return (
@@ -54,20 +54,20 @@ function Leque({ cor, onChange }: { cor: Cor; onChange: (c: Cor) => void }) {
               aria-checked={ativo}
               onClick={() => onChange(c)}
               style={{ zIndex: ativo ? 40 : 10 + i, transformOrigin: "50% 165%" }}
-              animate={{ rotate: (i - meio) * 9, y: ativo ? -40 : 0 }}
-              whileHover={{ y: ativo ? -40 : -18 }}
+              animate={{ rotate: (i - meio) * 13, y: ativo ? -8 : 0 }}
+              whileHover={{ y: ativo ? -8 : -10 }}
               transition={{ type: "spring", stiffness: 240, damping: 24 }}
-              className="absolute bottom-6 left-1/2 -ml-[3.25rem] flex h-60 w-[6.5rem] flex-col rounded-2xl bg-white p-1.5 text-left shadow-[0_24px_50px_-24px_rgb(0_0_0/0.6)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent"
+              className={`absolute bottom-6 left-1/2 -ml-[3.5rem] flex h-60 w-[7rem] flex-col rounded-2xl bg-white p-1.5 text-left shadow-[0_24px_50px_-24px_rgb(0_0_0/0.6)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent ${ativo ? "ring-[3px] ring-accent" : "ring-1 ring-black/5"}`}
             >
               {/* No leque só o topo de cada cartela aparece: o nome vai em cima. */}
-              <span className="block px-1 pb-2 pt-1 text-[11px] font-semibold leading-tight text-[#0f2344]">{c.nome}</span>
+              <span className="block max-w-[4.75rem] px-1.5 pb-2 pt-1 text-[10px] font-semibold leading-[1.15] text-[#0f2344]">{c.nome}</span>
               <span className="block flex-1 rounded-[0.8rem]" style={{ backgroundColor: c.hex }} />
             </motion.button>
           );
         })}
       </div>
 
-      <div role="radiogroup" aria-label="Cores sugeridas" className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-4 md:hidden">
+      <div role="radiogroup" aria-label="Cores Suvinil sugeridas" className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-4 md:hidden">
         {SUGESTOES.map((c) => {
           const ativo = c.hex === cor.hex;
           return (
@@ -216,6 +216,7 @@ export function Simulador() {
   };
 
   const temSelecao = !!base || pontos.length > 0;
+  const daSuvinil = SUGESTOES.some((c) => c.hex === cor.hex);
   const aspect = pixels ? `${pixels.width} / ${pixels.height}` : "3 / 2";
   const segment = (ativo: boolean) =>
     `inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-300 sm:flex-none ${ativo ? "bg-white text-[#0f2344]" : "text-band-ink/75 hover:text-band-ink"}`;
@@ -233,12 +234,12 @@ export function Simulador() {
       <div className="mx-auto max-w-[88rem] px-4 md:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
-            <Eyebrow tone="onDark">Simulador de cores</Eyebrow>
+            <Eyebrow tone="onDark">Simulador de cores Suvinil</Eyebrow>
             <SectionTitle className="mt-6">Veja a cor na parede antes de comprar.</SectionTitle>
           </Reveal>
           <Reveal delay={0.1} className="lg:col-span-5 lg:pb-3">
             <p className="max-w-[44ch] text-lg leading-relaxed text-band-ink/75 md:text-xl">
-              Experimente em uma casa de exemplo ou envie a foto da sua parede e toque onde quer pintar.
+              Cores do catálogo Suvinil, a marca da nossa máquina de tintas. Experimente na casa de exemplo ou envie a foto da sua parede e toque onde quer pintar.
             </p>
           </Reveal>
         </div>
@@ -398,10 +399,17 @@ export function Simulador() {
               </label>
             </div>
             <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-band-ink/55">
-              Cada marca tem seus próprios códigos. Se o catálogo online mostrar o HEX da cor, digite aqui para simular. Na loja, a gente confirma o tom certo.
+              Fazemos a cor na hora na máquina Suvinil da loja. Viu um tom em outro lugar? Digite o HEX aqui para simular. Na tela a cor muda com o monitor, então a gente confirma o tom na loja, na cartela.
             </p>
 
-            <WhatsAppButton className="mt-8" message={`Olá! Simulei a cor ${cor.nome} (${cor.hex}) no site. Quero um orçamento dessa tinta.`} />
+            <WhatsAppButton
+              className="mt-8"
+              message={
+                daSuvinil
+                  ? `Olá! Simulei a cor ${cor.nome} da Suvinil (${cor.hex}) no site. Quero um orçamento dessa tinta.`
+                  : `Olá! Simulei a cor ${cor.hex} no site. Quero um orçamento dessa tinta.`
+              }
+            />
           </Reveal>
 
           <Reveal delay={0.15} className="order-1 min-w-0 lg:order-2 lg:col-span-7">

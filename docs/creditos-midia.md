@@ -31,3 +31,7 @@ Pôster: primeiro quadro da montagem (`public/video/hero-poster.jpg`).
 
 - Arte montada em HTML e renderizada no Chrome em 1200x630: logo, fontes do site (Bricolage Grotesque e Outfit, Google Fonts, licença OFL) e a foto `src/assets/img/tintas-latas.jpg` (imagem de fornecedor dos posts do Instagram da loja).
 - Substituiu a captura da fachada do Street View.
+
+## Cores do simulador
+
+As sete cores sugeridas são do catálogo **Suvinil**, a marca da máquina tintométrica da loja. Os valores hexadecimais são a referência em tela de cada cor, conferidos um a um no encycolorpedia (base pública de cores de tinta): Algodão Egípcio `#EAE3D5`, Rosa-queimado `#D0A993`, Tijolo `#C16C45`, Amarelo Real `#F9D428`, Verde-catamarã `#B2CFC5`, Azul-polar `#C6D7E5` e Azul-petróleo `#0A747C`. O tom final sai da máquina; a tela é só referência.
