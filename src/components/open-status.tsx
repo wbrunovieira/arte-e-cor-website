@@ -10,7 +10,19 @@ function toMinutes(hhmm: string) {
   return h * 60 + m;
 }
 
-// Só calcula de segunda a sexta: o horário de fim de semana ainda não foi confirmado.
+// Feriado não é detectado (precisaria de um calendário), então nesses dias o horário
+// mostrado no rodapé e no card da loja vale mais que este selo.
+function horarioDoDia(dia: string) {
+  if (dia === "Sat") return SITE.hours.saturday;
+  if (dia === "Sun") return SITE.hours.sunday;
+  return SITE.hours.weekdays;
+}
+
+function formatar(hhmm: string) {
+  const [h, m] = hhmm.split(":");
+  return m === "00" ? `${Number(h)}h` : `${Number(h)}h${m}`;
+}
+
 function calcular(now = new Date()): Status {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Sao_Paulo",
@@ -21,16 +33,18 @@ function calcular(now = new Date()): Status {
   }).formatToParts(now);
   const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
   const dia = get("weekday");
-  if (!["Mon", "Tue", "Wed", "Thu", "Fri"].includes(dia)) return null;
+  const hoje = horarioDoDia(dia);
 
   const agora = Number(get("hour")) * 60 + Number(get("minute"));
-  const abre = toMinutes(SITE.hours.weekdays.open);
-  const fecha = toMinutes(SITE.hours.weekdays.close);
+  const abre = toMinutes(hoje.open);
+  const fecha = toMinutes(hoje.close);
 
   if (agora >= abre && agora < fecha) return { aberto: true, texto: "Aberto agora" };
-  if (agora < abre) return { aberto: false, texto: "Abre hoje às 8h30" };
-  if (dia !== "Fri") return { aberto: false, texto: "Abre amanhã às 8h30" };
-  return null;
+  if (agora < abre) return { aberto: false, texto: `Abre hoje às ${formatar(hoje.open)}` };
+
+  const ordem = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const amanha = horarioDoDia(ordem[(ordem.indexOf(dia) + 1) % 7]);
+  return { aberto: false, texto: `Abre amanhã às ${formatar(amanha.open)}` };
 }
 
 function useOpenStatus() {

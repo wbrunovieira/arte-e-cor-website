@@ -24,7 +24,7 @@ Itens marcados com **(confirmar)** têm fontes divergentes ou não foram encontr
 | Endereço | Rua Coronel Veiga, **183**, Coronel Veiga, Petrópolis/RJ, CEP 25655-151 | Confirmado pela placa na fachada, pelo Instagram e pelo CNPJ; o Google mostra 181 por engano. As legendas descrevem como "Próximo ao Centro" |
 | WhatsApp (vendas) | (24) 98865-1692 | Principal canal de pedidos, em todas as legendas e no Linktree |
 | Telefone fixo | (24) 2242-7228 | Google |
-| Horário | Até 18h30 | Google e story "Loja aberta até as 18.30 hs". Post de Carnaval indica dia normal das 8h30 às 18h30. **(confirmar sábado, domingo e feriados)** |
+| Horário | Seg a sex 8h30-18h30, sáb 8h30-15h30, dom 9h-13h, feriados 9h-15h30 | Confirmado com a loja em 18/09/2026 |
 | Instagram | [@arteecortintas.petropolis](https://www.instagram.com/arteecortintas.petropolis/) | ~478 seguidores, 184 posts |
 | Facebook | [arteecortintas.petropolis](https://www.facebook.com/arteecortintas.petropolis/) | Conteúdo não acessível sem login |
 | Linktree | [linktr.ee/arteecortintas.petropolis](https://linktr.ee/arteecortintas.petropolis) | Só um link: WhatsApp |

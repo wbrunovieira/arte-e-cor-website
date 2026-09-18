@@ -76,7 +76,11 @@ export function Loja() {
                   <Linha icon={<ClockIcon weight="light" className="size-6" />} titulo="Horário">
                     Segunda a sexta, das 8h30 às 18h30
                     <br />
-                    <span className="text-muted">Sábados e feriados: consulte pelo WhatsApp</span>
+                    Sábado, das 8h30 às 15h30
+                    <br />
+                    Domingo, das 9h às 13h
+                    <br />
+                    <span className="text-muted">Feriados, das 9h às 15h30</span>
                   </Linha>
                   <Linha icon={<PhoneIcon weight="light" className="size-6" />} titulo="Contato">
                     <a href={SITE.phone.href} className="inline-block py-0.5 font-medium hover:text-brand">

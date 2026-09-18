@@ -16,8 +16,13 @@ export const SITE = {
     state: "RJ",
     postalCode: "25655-151",
   },
-  // Horário confirmado de segunda a sexta; sábado e domingo ainda a confirmar com a loja.
-  hours: { weekdays: { open: "08:30", close: "18:30" } },
+  // Horário completo confirmado com a loja em 18/09/2026.
+  hours: {
+    weekdays: { open: "08:30", close: "18:30" },
+    saturday: { open: "08:30", close: "15:30" },
+    sunday: { open: "09:00", close: "13:00" },
+    holidays: { open: "09:00", close: "15:30" },
+  },
   rating: { value: 4.7, count: 22 },
   instagram: "https://www.instagram.com/arteecortintas.petropolis/",
   facebook: "https://www.facebook.com/arteecortintas.petropolis/",

@@ -49,11 +49,24 @@ export function SiteFooter() {
 
         <div className="md:col-span-3 lg:col-span-2">
           <h2 className="text-sm font-medium text-muted">Horário</h2>
-          <p className="mt-5 leading-relaxed">
-            Segunda a sexta
-            <br />
-            8h30 às 18h30
-          </p>
+          <dl className="mt-5 space-y-2 leading-relaxed">
+            <div>
+              <dt className="text-muted">Segunda a sexta</dt>
+              <dd>8h30 às 18h30</dd>
+            </div>
+            <div>
+              <dt className="text-muted">Sábado</dt>
+              <dd>8h30 às 15h30</dd>
+            </div>
+            <div>
+              <dt className="text-muted">Domingo</dt>
+              <dd>9h às 13h</dd>
+            </div>
+            <div>
+              <dt className="text-muted">Feriados</dt>
+              <dd>9h às 15h30</dd>
+            </div>
+          </dl>
         </div>
 
         <nav aria-label="Rodapé" className="md:col-span-12 lg:col-span-3">

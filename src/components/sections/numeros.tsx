@@ -16,7 +16,7 @@ const NUMEROS: { valor: ReactNode; legenda: string }[] = [
     legenda: `no Google, com ${SITE.rating.count} avaliações`,
   },
   { valor: <CountUp to={11} />, legenda: "marcas líderes na prateleira" },
-  { valor: "8h30", legenda: "abrimos de segunda a sexta" },
+  { valor: "7 dias", legenda: "de loja aberta por semana, até domingo" },
 ];
 
 export function Numeros() {
