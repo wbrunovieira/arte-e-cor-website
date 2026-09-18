@@ -25,8 +25,8 @@ export function Numeros() {
       <div className="mx-auto max-w-[88rem] px-4 md:px-8">
         <Reveal>
           <p className="max-w-5xl font-display text-[clamp(2rem,4.4vw,4rem)] font-medium leading-[1.04] tracking-[-0.035em]">
-            Uma loja de bairro com prateleira de loja grande.{" "}
-            <span className="text-muted/70">Entrega na porta, desconto na quantidade e atendimento de quem entende de tinta.</span>
+            Uma loja de bairro com prateleira de loja grande.
+            <span className="mt-2 block text-muted/70 md:mt-3">Entrega na porta, desconto na quantidade e atendimento de quem entende de tinta.</span>
           </p>
         </Reveal>
 
