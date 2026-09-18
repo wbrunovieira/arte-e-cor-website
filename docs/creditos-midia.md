@@ -34,4 +34,10 @@ Pôster: primeiro quadro da montagem (`public/video/hero-poster.jpg`).
 
 ## Cores do simulador
 
-As sete cores sugeridas são do catálogo **Suvinil**, a marca da máquina tintométrica da loja. Os valores hexadecimais são a referência em tela de cada cor, conferidos um a um no encycolorpedia (base pública de cores de tinta): Algodão Egípcio `#EAE3D5`, Rosa-queimado `#D0A993`, Tijolo `#C16C45`, Amarelo Real `#F9D428`, Verde-catamarã `#B2CFC5`, Azul-polar `#C6D7E5` e Azul-petróleo `#0A747C`. O tom final sai da máquina; a tela é só referência.
+As cores são as do **leque Suvinil V5** (1.788 tons), a marca da máquina tintométrica da loja. Cada cor tem o nome e o código oficiais.
+
+- Origem: API do catálogo da Suvinil (`catalog.suvinil.com.br/api/v1/colors`), usada pelo próprio site da marca.
+- A cópia fica em `src/lib/cores-suvinil.json` para o simulador não depender de um serviço de terceiros no ar. Para atualizar: `node scripts/atualizar-cores-suvinil.mjs`.
+- Ficam de fora metalizadas, Glasu! e cores prontas para outras superfícies.
+- As famílias (brancos, cinzas, beges, amarelos, laranjas, vermelhos, rosas, roxos, azuis e verdes) são calculadas a partir do RGB de cada cor; a Suvinil não publica esse agrupamento.
+- O valor em tela é referência: o tom final sai da máquina, conferido na cartela da loja.

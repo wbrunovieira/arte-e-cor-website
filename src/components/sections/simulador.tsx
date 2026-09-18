@@ -14,80 +14,18 @@ import { AnimatePresence, animate, motion, useInView, useReducedMotion } from "m
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent, type MouseEvent } from "react";
 import { WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
+import { PaletaSuvinil, useCatalogoSuvinil, type CorSuvinil } from "@/components/paleta-suvinil";
 import { Bezel, Eyebrow, SectionTitle } from "@/components/ui";
 import { floodSelect, loadMask, loadPixels, mergeRegion, parseHex, recolor, toHex } from "@/lib/recolor";
 
-type Cor = { nome: string; hex: string };
+type Cor = { nome: string; hex: string; codigo?: string };
 type Ponto = { x: number; y: number };
 
-// Cores do catálogo Suvinil, a marca da máquina tintométrica da loja.
-// Os valores são a referência em tela de cada cor; o tom final sai da máquina.
-const SUGESTOES: Cor[] = [
-  { nome: "Algodão Egípcio", hex: "#EAE3D5" },
-  { nome: "Rosa-queimado", hex: "#D0A993" },
-  { nome: "Tijolo", hex: "#C16C45" },
-  { nome: "Amarelo Real", hex: "#F9D428" },
-  { nome: "Verde-catamarã", hex: "#B2CFC5" },
-  { nome: "Azul-polar", hex: "#C6D7E5" },
-  { nome: "Azul-petróleo", hex: "#0A747C" },
-];
+// Cor de abertura: uma do catálogo Suvinil, para a seção já entrar com uma escolha feita.
+const DESTAQUE: Cor = { nome: "Azul-petróleo", codigo: "P067", hex: "#0A747C" };
 
 const EXEMPLO = { foto: "/simulador/casa.webp", mascara: "/simulador/casa-mask.png" };
 const EASE = [0.32, 0.72, 0, 1] as const;
-
-function nomeDaCor(hex: string) {
-  return SUGESTOES.find((c) => c.hex === hex)?.nome ?? "Cor personalizada";
-}
-
-function Leque({ cor, onChange }: { cor: Cor; onChange: (c: Cor) => void }) {
-  const meio = (SUGESTOES.length - 1) / 2;
-  return (
-    <>
-      <div role="radiogroup" aria-label="Cores Suvinil sugeridas" className="relative mx-auto hidden h-[21rem] w-full max-w-2xl md:block">
-        {SUGESTOES.map((c, i) => {
-          const ativo = c.hex === cor.hex;
-          return (
-            <motion.button
-              key={c.hex}
-              type="button"
-              role="radio"
-              aria-checked={ativo}
-              onClick={() => onChange(c)}
-              style={{ zIndex: ativo ? 40 : 10 + i, transformOrigin: "50% 165%" }}
-              animate={{ rotate: (i - meio) * 13, y: ativo ? -8 : 0 }}
-              whileHover={{ y: ativo ? -8 : -10 }}
-              transition={{ type: "spring", stiffness: 240, damping: 24 }}
-              className={`absolute bottom-6 left-1/2 -ml-[3.5rem] flex h-60 w-[7rem] flex-col rounded-2xl bg-white p-1.5 text-left shadow-[0_24px_50px_-24px_rgb(0_0_0/0.6)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent ${ativo ? "ring-[3px] ring-accent" : "ring-1 ring-black/5"}`}
-            >
-              {/* No leque só o topo de cada cartela aparece: o nome vai em cima. */}
-              <span className="block max-w-[4.75rem] px-1.5 pb-2 pt-1 text-[10px] font-semibold leading-[1.15] text-[#0f2344]">{c.nome}</span>
-              <span className="block flex-1 rounded-[0.8rem]" style={{ backgroundColor: c.hex }} />
-            </motion.button>
-          );
-        })}
-      </div>
-
-      <div role="radiogroup" aria-label="Cores Suvinil sugeridas" className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-3 pt-4 md:hidden">
-        {SUGESTOES.map((c) => {
-          const ativo = c.hex === cor.hex;
-          return (
-            <button
-              key={c.hex}
-              type="button"
-              role="radio"
-              aria-checked={ativo}
-              onClick={() => onChange(c)}
-              className={`flex h-36 w-24 shrink-0 snap-start flex-col rounded-2xl bg-white p-1.5 text-left transition-transform duration-500 ease-premium ${ativo ? "-translate-y-2 ring-4 ring-accent" : "ring-1 ring-black/5"}`}
-            >
-              <span className="block flex-1 rounded-[0.8rem]" style={{ backgroundColor: c.hex }} />
-              <span className="block px-1 pb-0.5 pt-1.5 text-[11px] font-semibold leading-tight text-[#0f2344]">{c.nome}</span>
-            </button>
-          );
-        })}
-      </div>
-    </>
-  );
-}
 
 export function Simulador() {
   const reduce = useReducedMotion();
@@ -98,14 +36,15 @@ export function Simulador() {
   const inView = useInView(areaRef, { once: true, amount: 0.4 });
   // A casa de exemplo só é baixada quando o simulador chega perto da tela.
   const perto = useInView(areaRef, { once: true, margin: "800px 0px" });
+  const { catalogo, porHex } = useCatalogoSuvinil(perto);
 
   const [fonte, setFonte] = useState<"exemplo" | "foto">("exemplo");
   const [pixels, setPixels] = useState<ImageData | null>(null);
   const [base, setBase] = useState<Float32Array | null>(null);
   const [pontos, setPontos] = useState<Ponto[]>([]);
   const [precisao, setPrecisao] = useState(22);
-  const [cor, setCor] = useState<Cor>(SUGESTOES[0]);
-  const [hexDigitado, setHexDigitado] = useState(SUGESTOES[0].hex);
+  const [cor, setCor] = useState<Cor>(DESTAQUE);
+  const [hexDigitado, setHexDigitado] = useState(DESTAQUE.hex);
   const [pos, setPos] = useState(50);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
@@ -162,8 +101,8 @@ export function Simulador() {
     return () => controls.stop();
   }, [inView, reduce, carregando]);
 
-  const escolher = (c: Cor) => {
-    setCor(c);
+  const escolher = (c: CorSuvinil) => {
+    setCor({ nome: c.nome, hex: c.hex, codigo: c.codigo });
     setHexDigitado(c.hex);
   };
 
@@ -172,7 +111,8 @@ export function Simulador() {
     const rgb = parseHex(valor);
     if (rgb) {
       const hex = toHex(rgb);
-      setCor({ nome: nomeDaCor(hex), hex });
+      const daCartela = porHex.get(hex);
+      setCor(daCartela ? { nome: daCartela.nome, hex, codigo: daCartela.codigo } : { nome: "Cor personalizada", hex });
     }
   };
 
@@ -216,7 +156,8 @@ export function Simulador() {
   };
 
   const temSelecao = !!base || pontos.length > 0;
-  const daSuvinil = SUGESTOES.some((c) => c.hex === cor.hex);
+  // O nome e o código saem do catálogo assim que ele chega, inclusive para a cor de abertura.
+  const corAtual = cor.codigo ? cor : (porHex.get(cor.hex.toUpperCase()) ?? cor);
   const aspect = pixels ? `${pixels.width} / ${pixels.height}` : "3 / 2";
   const segment = (ativo: boolean) =>
     `inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-300 sm:flex-none ${ativo ? "bg-white text-[#0f2344]" : "text-band-ink/75 hover:text-band-ink"}`;
@@ -358,22 +299,22 @@ export function Simulador() {
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-10 grid max-w-6xl items-end gap-10 md:mt-8 lg:grid-cols-12">
-          <Reveal className="order-2 min-w-0 lg:order-1 lg:col-span-5 lg:pb-10">
+        <div className="mx-auto mt-10 grid max-w-6xl items-start gap-10 md:mt-8 lg:grid-cols-12">
+          <Reveal className="order-2 min-w-0 lg:sticky lg:top-28 lg:order-1 lg:col-span-5">
             <p className="text-sm font-medium text-band-ink/60">Cor escolhida</p>
             <div className="mt-2 flex items-center gap-4">
               <span className="size-12 shrink-0 rounded-full ring-4 ring-white/10 transition-colors duration-700 ease-premium" style={{ backgroundColor: cor.hex }} />
               <span className="relative block h-12 flex-1 overflow-hidden">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span
-                    key={cor.nome + cor.hex}
+                    key={corAtual.nome + corAtual.hex}
                     initial={{ y: "100%", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: "-100%", opacity: 0 }}
                     transition={{ duration: 0.6, ease: EASE }}
                     className="absolute inset-0 flex items-center font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl"
                   >
-                    {cor.nome}
+                    {corAtual.nome}
                   </motion.span>
                 </AnimatePresence>
               </span>
@@ -405,15 +346,15 @@ export function Simulador() {
             <WhatsAppButton
               className="mt-8"
               message={
-                daSuvinil
-                  ? `Olá! Simulei a cor ${cor.nome} da Suvinil (${cor.hex}) no site. Quero um orçamento dessa tinta.`
+                corAtual.codigo
+                  ? `Olá! Simulei a cor ${corAtual.nome} da Suvinil (código ${corAtual.codigo}) no site. Quero um orçamento dessa tinta.`
                   : `Olá! Simulei a cor ${cor.hex} no site. Quero um orçamento dessa tinta.`
               }
             />
           </Reveal>
 
           <Reveal delay={0.15} className="order-1 min-w-0 lg:order-2 lg:col-span-7">
-            <Leque cor={cor} onChange={escolher} />
+            <PaletaSuvinil catalogo={catalogo} selecionada={cor.hex} onEscolher={escolher} />
           </Reveal>
         </div>
       </div>
