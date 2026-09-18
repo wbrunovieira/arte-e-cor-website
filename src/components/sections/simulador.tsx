@@ -9,6 +9,7 @@ import {
   HouseLineIcon,
   ImageSquareIcon,
   LockSimpleIcon,
+  PaintBucketIcon,
 } from "@phosphor-icons/react";
 import { AnimatePresence, animate, motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent, type MouseEvent } from "react";
@@ -277,10 +278,17 @@ export function Simulador() {
             </div>
           </Bezel>
 
-          <p className="mt-4 flex items-center gap-2 text-sm text-band-ink/60">
-            <LockSimpleIcon weight="regular" className="size-4 shrink-0" aria-hidden />
-            {erro ?? "Sua foto é processada só neste aparelho. Nada é enviado para a internet."}
-          </p>
+          <div className="mt-4 flex flex-col gap-2 text-sm text-band-ink/60 md:flex-row md:items-center md:gap-6">
+            <p className="flex items-center gap-2">
+              <LockSimpleIcon weight="regular" className="size-4 shrink-0" aria-hidden />
+              {erro ?? "Sua foto é processada só neste aparelho. Nada é enviado para a internet."}
+            </p>
+            {/* O aviso de variação fica junto da foto, que é onde a pessoa está olhando na hora de decidir. */}
+            <p className="flex items-center gap-2">
+              <PaintBucketIcon weight="regular" className="size-4 shrink-0" aria-hidden />
+              A cor na tela é referência: o tom real a gente confere na cartela da loja.
+            </p>
+          </div>
         </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-6xl items-start gap-10 md:mt-8 lg:grid-cols-12">
