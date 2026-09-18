@@ -71,7 +71,14 @@ export function Hero() {
       return;
     }
     // O vídeo só começa a baixar depois do load, para não disputar banda com a foto e as fontes.
-    const tocar = () => video.play().catch(() => {});
+    // A fonte é escolhida aqui (e não no JSX) para o navegador baixar um arquivo só:
+    // no celular, a versão de 720px tem 330 KB no lugar de 1,17 MB.
+    const tocar = () => {
+      const grande = window.matchMedia("(min-width: 1024px)").matches;
+      const fonte = grande ? "/video/hero.mp4" : "/video/hero-mobile.mp4";
+      if (!video.src.endsWith(fonte)) video.src = fonte;
+      video.play().catch(() => {});
+    };
     if (document.readyState === "complete") {
       tocar();
       return;
@@ -95,7 +102,6 @@ export function Hero() {
               ref={videoRef}
               onPlaying={() => setTocando(true)}
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${tocando ? "opacity-100" : "opacity-0"}`}
-              src="/video/hero.mp4"
               muted
               loop
               playsInline

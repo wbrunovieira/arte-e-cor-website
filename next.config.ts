@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Permite compilar numa pasta separada (NEXT_DIST_DIR=.next-audit npx next build) sem
+  // derrubar o `next dev` que está usando o .next.
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   images: {
     qualities: [75, 90],
+    // AVIF primeiro: costuma render 20-30% menos que o WebP nas fotos de produto.
+    formats: ["image/avif", "image/webp"],
   },
   async headers() {
     return [
