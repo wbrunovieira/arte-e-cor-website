@@ -27,7 +27,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="md:col-span-4 lg:col-span-3">
+        <div className="relative before:absolute before:inset-y-0 before:-left-6 before:w-px before:bg-linear-to-b before:from-transparent before:via-ink/15 before:to-transparent md:col-span-4 lg:col-span-3 md:before:block before:hidden">
           <h2 className="text-sm font-medium text-muted">Contato</h2>
           <ul className="mt-5 space-y-3 leading-relaxed">
             <li>
@@ -48,7 +48,7 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="md:col-span-3 lg:col-span-2">
+        <div className="relative before:absolute before:inset-y-0 before:-left-6 before:w-px before:bg-linear-to-b before:from-transparent before:via-ink/15 before:to-transparent md:col-span-3 lg:col-span-2 md:before:block before:hidden">
           <h2 className="text-sm font-medium text-muted">Horário</h2>
           <dl className="mt-5 space-y-2 leading-relaxed">
             <div>
@@ -70,7 +70,7 @@ export function SiteFooter() {
           </dl>
         </div>
 
-        <nav aria-label="Rodapé" className="md:col-span-12 lg:col-span-3">
+        <nav aria-label="Rodapé" className="relative before:absolute before:inset-y-0 before:-left-6 before:w-px before:bg-linear-to-b before:from-transparent before:via-ink/15 before:to-transparent md:col-span-12 lg:col-span-3 lg:before:block before:hidden">
           <h2 className="text-sm font-medium text-muted">Navegue</h2>
           <ul className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-1">
             {NAV.map((item) => (
