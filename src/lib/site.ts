@@ -2,7 +2,6 @@ export const SITE = {
   name: "Arte e Cor Tintas e Ferragens",
   shortName: "Arte e Cor",
   legalName: "Arte e Cor Tintas LTDA",
-  cnpj: "49.699.801/0001-86",
   // NEXT_PUBLIC_SITE_URL na Vercel; o padrão é o domínio de produção.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://arteecortintas.com.br",
   description:

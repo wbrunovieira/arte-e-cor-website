@@ -1,6 +1,7 @@
 import { FacebookLogoIcon, InstagramLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import { LogoMarca, LogoWordmark } from "@/components/brand";
 import { Reveal } from "@/components/reveal";
+import { WBSignature } from "@/components/wb-signature";
 import { NAV, SITE, whatsappLink } from "@/lib/site";
 
 const social =
@@ -92,9 +93,9 @@ export function SiteFooter() {
       <div className="mt-10 border-t border-ink/[0.08]">
         <div className="mx-auto flex max-w-[88rem] flex-col gap-2 px-4 py-7 text-sm text-muted md:flex-row md:justify-between md:px-8">
           <p>
-            © {new Date().getFullYear()} {SITE.legalName}, <span className="whitespace-nowrap">CNPJ {SITE.cnpj}</span>
+            © {new Date().getFullYear()} {SITE.legalName} · Petrópolis, Rio de Janeiro
           </p>
-          <p>Petrópolis, Rio de Janeiro</p>
+          <WBSignature />
         </div>
       </div>
     </footer>
