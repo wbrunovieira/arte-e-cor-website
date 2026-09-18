@@ -1,6 +1,5 @@
 import type { StaticImageData } from "next/image";
 import idosos from "@/assets/img/idosos.jpg";
-import lixadeiras from "@/assets/img/lixadeiras.jpg";
 import roloTextura from "@/assets/img/rolo-textura.jpg";
 import tintaLata from "@/assets/img/tinta-lata.jpg";
 import tintasLatas from "@/assets/img/tintas-latas.jpg";
@@ -45,20 +44,6 @@ export const DICAS: Dica[] = [
       "Carregue o rolo sem encharcar para não escorrer.",
       "Passe em movimentos cruzados para cobrir todos os lados do relevo.",
       "Na dúvida, mande uma foto da parede no WhatsApp e indicamos o rolo ideal.",
-    ],
-  },
-  {
-    slug: "lixadeira",
-    titulo: "Qual lixadeira usar em cada situação",
-    resumo: "Orbital para detalhes, lixadeira de parede para grandes áreas. Entenda a diferença.",
-    imagem: lixadeiras,
-    alt: "Lixadeiras elétricas Atlas Powertech",
-    intro: "Lixar bem é o segredo de um acabamento liso. A linha Atlas Powertech tem um modelo para cada etapa:",
-    itens: [
-      "Lixadeira orbital: ideal para áreas menores, cantos, portas e móveis.",
-      "Lixadeira de parede e teto: com haste longa, rende em massa corrida e drywall.",
-      "Modelos com saída para aspirador deixam o ambiente muito mais limpo.",
-      "Troque a lixa conforme a etapa: grão grosso para nivelar, fino para o acabamento.",
     ],
   },
   {
