@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
     // AVIF primeiro: costuma render 20-30% menos que o WebP nas fotos de produto.
     formats: ["image/avif", "image/webp"],
   },
+  experimental: {
+    // O CSS do Tailwind tem 13 KB e bloqueia a primeira pintura. Como quase todo
+    // visitante chega pela primeira vez (busca ou WhatsApp), embutir compensa o
+    // fato de ele não ficar em cache separado.
+    inlineCss: true,
+  },
   async headers() {
     return [
       {

@@ -10,11 +10,12 @@ const outfit = Outfit({
   display: "swap",
 });
 
+// Só o eixo de peso: com opsz e wdth a fonte tem 131 KB, contra 41 KB assim, e ela
+// entra no caminho do primeiro paint no celular.
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
-  axes: ["opsz", "wdth"],
 });
 
 export const metadata: Metadata = {
