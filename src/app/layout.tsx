@@ -35,6 +35,8 @@ export const metadata: Metadata = {
     "entrega grátis tintas Petrópolis",
   ],
   alternates: { canonical: "/" },
+  // Verificação do Bing Webmaster (a do DNS já vale; esta é a segunda prova).
+  verification: { other: { "msvalidate.01": "348801350CDB2449AE813136F83FB038" } },
   openGraph: {
     type: "website",
     url: "/",
