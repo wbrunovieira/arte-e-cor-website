@@ -16,9 +16,9 @@ import { WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import { PaletaSuvinil, useCatalogoSuvinil, type CorSuvinil } from "@/components/paleta-suvinil";
 import { Bezel, Eyebrow, SectionTitle } from "@/components/ui";
-import { floodSelect, loadMask, loadPixels, mergeRegion, parseHex, recolor, toHex } from "@/lib/recolor";
+import { floodSelect, loadMask, loadPixels, mergeRegion, parseHex, recolor } from "@/lib/recolor";
 
-type Cor = { nome: string; hex: string; codigo?: string };
+type Cor = { nome: string; codigo: string; hex: string };
 type Ponto = { x: number; y: number };
 
 // Cor de abertura: uma do catálogo Suvinil, para a seção já entrar com uma escolha feita.
@@ -36,7 +36,7 @@ export function Simulador() {
   const inView = useInView(areaRef, { once: true, amount: 0.4 });
   // A casa de exemplo só é baixada quando o simulador chega perto da tela.
   const perto = useInView(areaRef, { once: true, margin: "800px 0px" });
-  const { catalogo, porHex } = useCatalogoSuvinil(perto);
+  const { catalogo } = useCatalogoSuvinil(perto);
 
   const [fonte, setFonte] = useState<"exemplo" | "foto">("exemplo");
   const [pixels, setPixels] = useState<ImageData | null>(null);
@@ -44,7 +44,6 @@ export function Simulador() {
   const [pontos, setPontos] = useState<Ponto[]>([]);
   const [precisao, setPrecisao] = useState(22);
   const [cor, setCor] = useState<Cor>(DESTAQUE);
-  const [hexDigitado, setHexDigitado] = useState(DESTAQUE.hex);
   const [pos, setPos] = useState(50);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
@@ -101,20 +100,7 @@ export function Simulador() {
     return () => controls.stop();
   }, [inView, reduce, carregando]);
 
-  const escolher = (c: CorSuvinil) => {
-    setCor({ nome: c.nome, hex: c.hex, codigo: c.codigo });
-    setHexDigitado(c.hex);
-  };
-
-  const digitarHex = (valor: string) => {
-    setHexDigitado(valor);
-    const rgb = parseHex(valor);
-    if (rgb) {
-      const hex = toHex(rgb);
-      const daCartela = porHex.get(hex);
-      setCor(daCartela ? { nome: daCartela.nome, hex, codigo: daCartela.codigo } : { nome: "Cor personalizada", hex });
-    }
-  };
+  const escolher = (c: CorSuvinil) => setCor({ nome: c.nome, hex: c.hex, codigo: c.codigo });
 
   const enviarFoto = async (e: ChangeEvent<HTMLInputElement>) => {
     const arquivo = e.target.files?.[0];
@@ -156,8 +142,6 @@ export function Simulador() {
   };
 
   const temSelecao = !!base || pontos.length > 0;
-  // O nome e o código saem do catálogo assim que ele chega, inclusive para a cor de abertura.
-  const corAtual = cor.codigo ? cor : (porHex.get(cor.hex.toUpperCase()) ?? cor);
   const aspect = pixels ? `${pixels.width} / ${pixels.height}` : "3 / 2";
   const segment = (ativo: boolean) =>
     `inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-300 sm:flex-none ${ativo ? "bg-white text-[#0f2344]" : "text-band-ink/75 hover:text-band-ink"}`;
@@ -307,49 +291,28 @@ export function Simulador() {
               <span className="relative block h-12 flex-1 overflow-hidden">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span
-                    key={corAtual.nome + corAtual.hex}
+                    key={cor.nome + cor.hex}
                     initial={{ y: "100%", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: "-100%", opacity: 0 }}
                     transition={{ duration: 0.6, ease: EASE }}
                     className="absolute inset-0 flex items-center font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl"
                   >
-                    {corAtual.nome}
+                    {cor.nome}
                   </motion.span>
                 </AnimatePresence>
               </span>
             </div>
 
-            <div className="mt-6 flex items-center gap-2 rounded-full bg-white/[0.08] p-1.5 pl-5 ring-1 ring-white/15 focus-within:ring-accent">
-              <label htmlFor="hex-cor" className="shrink-0 text-sm text-band-ink/70">
-                Código HEX
-              </label>
-              <input
-                id="hex-cor"
-                value={hexDigitado}
-                onChange={(e) => digitarHex(e.target.value)}
-                maxLength={7}
-                spellCheck={false}
-                autoComplete="off"
-                placeholder="#4F7552"
-                className="min-w-0 flex-1 bg-transparent px-2 font-mono text-base uppercase text-band-ink outline-none placeholder:text-band-ink/40"
-              />
-              <label className="relative grid size-10 shrink-0 cursor-pointer place-items-center overflow-hidden rounded-full ring-2 ring-white/20" style={{ backgroundColor: cor.hex }}>
-                <span className="sr-only">Escolher cor no seletor</span>
-                <input type="color" value={cor.hex.toLowerCase()} onChange={(e) => digitarHex(e.target.value)} className="absolute inset-0 cursor-pointer opacity-0" />
-              </label>
-            </div>
-            <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-band-ink/55">
-              Fazemos a cor na hora na máquina Suvinil da loja. Viu um tom em outro lugar? Digite o HEX aqui para simular. Na tela a cor muda com o monitor, então a gente confirma o tom na loja, na cartela.
+            <p className="mt-2 font-mono text-sm uppercase tracking-[0.12em] text-band-ink/60">Código {cor.codigo}</p>
+
+            <p className="mt-6 max-w-[46ch] text-sm leading-relaxed text-band-ink/55">
+              Fazemos essa cor na hora na máquina Suvinil da loja. Na tela o tom muda com o monitor, então a gente confirma na cartela quando você chegar.
             </p>
 
             <WhatsAppButton
               className="mt-8"
-              message={
-                corAtual.codigo
-                  ? `Olá! Simulei a cor ${corAtual.nome} da Suvinil (código ${corAtual.codigo}) no site. Quero um orçamento dessa tinta.`
-                  : `Olá! Simulei a cor ${cor.hex} no site. Quero um orçamento dessa tinta.`
-              }
+              message={`Olá! Simulei a cor ${cor.nome} da Suvinil (código ${cor.codigo}) no site. Quero um orçamento dessa tinta.`}
             />
           </Reveal>
 
