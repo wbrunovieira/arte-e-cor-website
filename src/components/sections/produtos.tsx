@@ -4,7 +4,6 @@ import { Reveal } from "@/components/reveal";
 import { Bezel, SectionTitle } from "@/components/ui";
 import { whatsappLink } from "@/lib/site";
 import grelha from "@/assets/img/grelha.jpg";
-import lixadeira from "@/assets/img/lixadeira.jpg";
 import roloTextura from "@/assets/img/rolo-textura.jpg";
 import tintasLatas from "@/assets/img/tintas-latas.jpg";
 
@@ -91,7 +90,7 @@ export function Produtos() {
             </a>
           </Reveal>
 
-          <Reveal delay={0.08} className="h-[22rem] lg:col-span-5 lg:h-auto">
+          <Reveal delay={0.08} className="h-[22rem] lg:col-span-5 lg:row-span-2 lg:h-auto">
             <FotoCard
               titulo="Acessórios de pintura"
               texto="Rolos, trinchas, espátulas e bandejas."
@@ -99,16 +98,6 @@ export function Produtos() {
               alt="Rolo de pintura aplicando tinta azul em parede texturizada"
               mensagem="Olá! Quero um orçamento de acessórios de pintura."
               posicao="50% 30%"
-            />
-          </Reveal>
-
-          <Reveal delay={0.14} className="h-[22rem] lg:col-span-5 lg:h-auto">
-            <FotoCard
-              titulo="Ferramentas"
-              texto="Lixadeiras Atlas Powertech para acabamento."
-              imagem={lixadeira}
-              alt="Lixadeira orbital Atlas Powertech vermelha"
-              mensagem="Olá! Quero um orçamento de ferramentas."
             />
           </Reveal>
 
@@ -141,7 +130,7 @@ export function Produtos() {
             />
           </Reveal>
 
-          <Reveal delay={0.2} className="h-[22rem] md:col-span-2 lg:col-span-4 lg:h-auto">
+          <Reveal delay={0.2} className="h-[22rem] lg:col-span-4 lg:h-auto">
             <a href={whatsappLink("Olá! Quero saber sobre tintas automotivas.")} target="_blank" rel="noopener noreferrer" className="group block h-full focus-visible:outline-none">
               <Bezel className="h-full" core="bg-accent text-accent-ink">
                 <span className="flex h-full flex-col justify-between p-6 md:p-7">
