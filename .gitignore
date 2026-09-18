@@ -42,3 +42,6 @@ next-env.d.ts
 
 # raw saved Instagram page (may contain session data; repo is public)
 /docs/empresa/instagram/
+
+# builds de verificação (NEXT_DIST_DIR)
+/.next-*
