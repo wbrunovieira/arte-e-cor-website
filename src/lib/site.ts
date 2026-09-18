@@ -39,6 +39,7 @@ export function whatsappLink(message = "Olá! Vim pelo site e quero fazer um ped
 }
 
 export const NAV = [
+  { href: "#topo", label: "Início" },
   { href: "#produtos", label: "Produtos" },
   { href: "#cores", label: "Cores" },
   { href: "#como-pedir", label: "Como pedir" },

@@ -14,12 +14,38 @@ export function SiteHeader() {
   const lenis = useLenis();
   const [overHero, setOverHero] = useState(true);
   const [open, setOpen] = useState(false);
+  // Começa no primeiro item: a página abre no topo e o menu já mostra onde a pessoa está,
+  // antes mesmo de o IntersectionObserver rodar.
+  const [atual, setAtual] = useState<string>(NAV[0].href);
+  const [sobre, setSobre] = useState<string | null>(null);
 
   // Enquanto o cabeçalho está sobre o vídeo do hero, a ilha fica escura e o texto claro.
   useMotionValueEvent(scrollY, "change", (y) => {
     const next = y < window.innerHeight - 110;
     if (next !== overHero) setOverHero(next);
   });
+
+  // Seção atual: vale a última âncora que cruzou a faixa logo abaixo do cabeçalho.
+  useEffect(() => {
+    const secoes = NAV.map((item) => document.querySelector(item.href)).filter((el): el is Element => !!el);
+    if (!secoes.length) return;
+    const visiveis = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = `#${entry.target.id}`;
+          if (entry.isIntersecting) visiveis.add(id);
+          else visiveis.delete(id);
+        }
+        // Entre duas seções (nenhuma na faixa), mantém a última marcada em vez de apagar tudo.
+        const achado = NAV.findLast((item) => visiveis.has(item.href))?.href;
+        if (achado) setAtual(achado);
+      },
+      { rootMargin: "-96px 0px -55% 0px" },
+    );
+    secoes.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -42,6 +68,8 @@ export function SiteHeader() {
   };
 
   const dark = overHero && !open;
+  // O indicador segue o mouse e, sem mouse em cima, volta para a seção atual.
+  const marcado = sobre ?? atual;
 
   return (
     <>
@@ -58,19 +86,44 @@ export function SiteHeader() {
             <LogoWordmark className={`w-[6.5rem] transition-colors duration-700 ${dark ? "text-white" : "text-brand"}`} />
           </a>
 
-          <nav aria-label="Principal" className="hidden items-center lg:flex">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => irPara(e, item.href)}
-                className={`rounded-full px-4 py-2 text-[15px] font-medium transition-colors duration-300 ${
-                  dark ? "text-white/75 hover:bg-white/10 hover:text-white" : "text-muted hover:bg-ink/[0.05] hover:text-ink"
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+          <nav aria-label="Principal" onMouseLeave={() => setSobre(null)} className="hidden items-center lg:flex">
+            {NAV.map((item) => {
+              const ativo = atual === item.href;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => irPara(e, item.href)}
+                  onMouseEnter={() => setSobre(item.href)}
+                  onFocus={() => setSobre(item.href)}
+                  onBlur={() => setSobre(null)}
+                  aria-current={ativo ? "true" : undefined}
+                  className={`relative rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 ${
+                    dark
+                      ? `focus-visible:ring-white/30 ${marcado === item.href ? "text-white" : "text-white/70"}`
+                      : `focus-visible:ring-brand/30 ${marcado === item.href ? "text-ink" : "text-muted"}`
+                  }`}
+                >
+                  {marcado === item.href && (
+                    <motion.span
+                      layoutId="nav-marcador"
+                      aria-hidden
+                      transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.7 }}
+                      className={`absolute inset-0 -z-10 rounded-full ${dark ? "bg-white/15" : "bg-ink/[0.06]"}`}
+                    />
+                  )}
+                  <span className="relative">
+                    {item.label}
+                    <span
+                      aria-hidden
+                      className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left rounded-full bg-accent transition-transform duration-500 ease-premium ${
+                        ativo ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </span>
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-1.5">
@@ -109,13 +162,17 @@ export function SiteHeader() {
                     <motion.a
                       href={item.href}
                       onClick={(e) => irPara(e, item.href)}
+                      aria-current={atual === item.href ? "true" : undefined}
                       initial={{ y: "110%" }}
                       animate={{ y: 0 }}
                       exit={{ y: "110%", transition: { duration: 0.35, ease: EASE } }}
                       transition={{ duration: 0.8, delay: 0.1 + i * 0.06, ease: EASE }}
-                      className="block py-4 font-display text-[2.75rem] font-semibold leading-none tracking-[-0.03em]"
+                      className={`flex items-center gap-3 py-4 font-display text-[2.75rem] font-semibold leading-none tracking-[-0.03em] ${
+                        atual === item.href ? "text-ink" : "text-muted"
+                      }`}
                     >
                       {item.label}
+                      {atual === item.href && <span aria-hidden className="size-2.5 rounded-full bg-accent" />}
                     </motion.a>
                   </li>
                 ))}
