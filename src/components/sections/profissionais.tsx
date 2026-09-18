@@ -1,20 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { PaintRollerIcon, PercentIcon, WrenchIcon } from "@phosphor-icons/react";
+import { PaintBucketIcon, PaintRollerIcon, PercentIcon } from "@phosphor-icons/react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { WhatsAppButton } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import { Bezel, Eyebrow, SectionTitle } from "@/components/ui";
-import lixadeira from "@/assets/img/lixadeira.jpg";
+import prateleiraLatas from "@/assets/img/prateleira-latas.jpg";
 import pintorRolo from "@/assets/img/pintor-rolo.jpg";
 import trinchas from "@/assets/img/trinchas.jpg";
 
 const VANTAGENS = [
   { icon: PercentIcon, texto: "Desconto para compras em quantidade" },
   { icon: PaintRollerIcon, texto: "Rolos, trinchas e espátulas da linha profissional Atlas" },
-  { icon: WrenchIcon, texto: "Lixadeiras Atlas Powertech para acabamento" },
+  { icon: PaintBucketIcon, texto: "Prateleira cheia: tinta, massa e impermeabilizante para a obra" },
 ];
 
 function useDesktop() {
@@ -51,7 +51,7 @@ export function Profissionais() {
           <motion.div style={desktop ? { y: yB } : undefined} className="md:absolute md:right-0 md:top-[26%] md:w-[52%]">
             <div className="md:rotate-[4deg]">
               <Bezel core="aspect-square md:aspect-[1080/630]">
-                <Image src={lixadeira} alt="Lixadeira orbital Atlas Powertech" fill placeholder="blur" sizes="(max-width: 768px) 46vw, 380px" className="object-cover" />
+                <Image src={prateleiraLatas} alt="Prateleira da loja cheia de latas de tinta Sherwin-Williams e Suvinil" fill placeholder="blur" sizes="(max-width: 768px) 46vw, 380px" className="object-cover" />
               </Bezel>
             </div>
           </motion.div>
