@@ -79,11 +79,11 @@ export function Loja() {
                     <span className="text-muted">Sábados e feriados: consulte pelo WhatsApp</span>
                   </Linha>
                   <Linha icon={<PhoneIcon weight="light" className="size-6" />} titulo="Contato">
-                    <a href={SITE.phone.href} className="font-medium hover:text-brand">
+                    <a href={SITE.phone.href} className="inline-block py-0.5 font-medium hover:text-brand">
                       {SITE.phone.display}
                     </a>
                     <span className="text-muted"> ou WhatsApp </span>
-                    <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-medium hover:text-brand">
+                    <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-block whitespace-nowrap py-0.5 font-medium hover:text-brand">
                       {SITE.whatsapp.display}
                     </a>
                   </Linha>
@@ -91,7 +91,7 @@ export function Loja() {
                     Aceitamos todos os cartões de crédito
                   </Linha>
                   <Linha icon={<StarIcon weight="light" className="size-6" />} titulo="Avaliação no Google">
-                    <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="font-medium hover:text-brand">
+                    <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block py-0.5 font-medium hover:text-brand">
                       {rating.value.toString().replace(".", ",")} de 5, com {rating.count} avaliações
                     </a>
                   </Linha>

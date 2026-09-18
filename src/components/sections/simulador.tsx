@@ -358,7 +358,7 @@ export function Simulador() {
         </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-6xl items-end gap-10 md:mt-8 lg:grid-cols-12">
-          <Reveal className="order-2 lg:order-1 lg:col-span-5 lg:pb-10">
+          <Reveal className="order-2 min-w-0 lg:order-1 lg:col-span-5 lg:pb-10">
             <p className="text-sm font-medium text-band-ink/60">Cor escolhida</p>
             <div className="mt-2 flex items-center gap-4">
               <span className="size-12 shrink-0 rounded-full ring-4 ring-white/10 transition-colors duration-700 ease-premium" style={{ backgroundColor: cor.hex }} />
@@ -404,7 +404,7 @@ export function Simulador() {
             <WhatsAppButton className="mt-8" message={`Olá! Simulei a cor ${cor.nome} (${cor.hex}) no site. Quero um orçamento dessa tinta.`} />
           </Reveal>
 
-          <Reveal delay={0.15} className="order-1 lg:order-2 lg:col-span-7">
+          <Reveal delay={0.15} className="order-1 min-w-0 lg:order-2 lg:col-span-7">
             <Leque cor={cor} onChange={escolher} />
           </Reveal>
         </div>

@@ -2,18 +2,30 @@
 
 import { WhatsappLogoIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CTA, whatsappLink } from "@/lib/site";
 
 // Atalho no celular, visível depois que o hero sai da tela.
 export function FloatingWhatsApp() {
   const { scrollY } = useScroll();
-  const [visible, setVisible] = useState(false);
+  const [passouDoHero, setPassouDoHero] = useState(false);
+  const [noRodape, setNoRodape] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const next = y > 640;
-    if (next !== visible) setVisible(next);
+    if (next !== passouDoHero) setPassouDoHero(next);
   });
+
+  // No fim da página o botão sai: ali o rodapé já tem os contatos e ele tapava a última linha.
+  useEffect(() => {
+    const rodape = document.querySelector("footer");
+    if (!rodape) return;
+    const observer = new IntersectionObserver(([entry]) => setNoRodape(entry.isIntersecting), { rootMargin: "0px 0px -35% 0px" });
+    observer.observe(rodape);
+    return () => observer.disconnect();
+  }, []);
+
+  const visible = passouDoHero && !noRodape;
 
   return (
     <AnimatePresence>

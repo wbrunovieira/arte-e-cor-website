@@ -30,12 +30,12 @@ export function SiteFooter() {
           <h2 className="text-sm font-medium text-muted">Contato</h2>
           <ul className="mt-5 space-y-3 leading-relaxed">
             <li>
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-brand">
+              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-block py-1 hover:text-brand">
                 WhatsApp {SITE.whatsapp.display}
               </a>
             </li>
             <li>
-              <a href={SITE.phone.href} className="hover:text-brand">
+              <a href={SITE.phone.href} className="inline-block py-1 hover:text-brand">
                 Telefone {SITE.phone.display}
               </a>
             </li>
@@ -61,7 +61,7 @@ export function SiteFooter() {
           <ul className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-1">
             {NAV.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="hover:text-brand">
+                <a href={item.href} className="inline-block py-1 hover:text-brand">
                   {item.label}
                 </a>
               </li>
