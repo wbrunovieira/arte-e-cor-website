@@ -7,13 +7,10 @@ const MARCAS = [
   "Suvinil",
   "Coral",
   "Eucatex",
-  "Lukscolor",
   "Quartzolit",
   "Atlas",
   "Hydronorth",
   "Resicril",
-  "Monarca",
-  "Anjo",
 ];
 
 function Faixa({ hidden = false }: { hidden?: boolean }) {
