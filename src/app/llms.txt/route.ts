@@ -32,7 +32,7 @@ const conteudo = `# ${SITE.name}
 - Acessórios de pintura: rolos, trinchas, espátulas e bandejas
 - Impermeabilizantes e argamassas, indicados para o clima úmido da serra
 - Ferragens e utilidades para casa e banheiro
-- Marcas: Sherwin-Williams, Suvinil, Coral, Eucatex, Quartzolit, Atlas, Hydronorth e Resicril
+- Marcas: Sherwin-Williams, Suvinil, Coral, Eucatex, Quartzolit, Atlas, Hydronorth e Colorgin Décor
 
 ## Diferenciais
 

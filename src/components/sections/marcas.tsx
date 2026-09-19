@@ -10,7 +10,7 @@ const MARCAS = [
   "Quartzolit",
   "Atlas",
   "Hydronorth",
-  "Resicril",
+  "Colorgin Décor",
 ];
 
 function Faixa({ hidden = false }: { hidden?: boolean }) {
