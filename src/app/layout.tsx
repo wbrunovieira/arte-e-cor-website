@@ -56,7 +56,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${bricolage.variable} antialiased`}>
+    <html lang="pt-BR" className={`sem-js ${outfit.variable} ${bricolage.variable} antialiased`}>
+      <head>
+        {/* Marca que o JavaScript rodou; sem isso o CSS mostra o conteúdo animado já visível. */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.remove("sem-js")` }} />
+      </head>
       <body className="min-h-dvh bg-bg font-sans text-ink">
         <MotionProvider>{children}</MotionProvider>
       </body>

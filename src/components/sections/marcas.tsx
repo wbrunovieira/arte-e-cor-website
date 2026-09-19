@@ -19,7 +19,7 @@ function Faixa({ hidden = false }: { hidden?: boolean }) {
       {MARCAS.map((marca, i) => (
         <div key={marca} className="flex items-center">
           <span
-            className={`whitespace-nowrap px-7 font-display text-[clamp(3.25rem,8vw,7.5rem)] font-semibold leading-none tracking-[-0.03em] md:px-12 ${
+            className={`whitespace-nowrap px-7 font-display text-[clamp(2rem,7vw,7.5rem)] font-semibold leading-none tracking-[-0.03em] md:px-12 ${
               i % 2 === 0 ? "text-ink" : "text-outline"
             }`}
           >
@@ -52,13 +52,9 @@ export function Marcas() {
         ))}
       </ul>
 
-      <div
-        className="marquee mt-16 border-y border-ink/[0.08] py-10 md:mt-24 md:py-14"
-        style={{
-          maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-        }}
-      >
+      {/* O véu das pontas fica no CSS (e não em estilo inline) para o modo de movimento
+          reduzido poder desligá-lo, já que lá a faixa vira lista estática. */}
+      <div className="marquee mt-16 border-y border-ink/[0.08] py-10 md:mt-24 md:py-14">
         <div aria-hidden className="marquee-track flex w-max">
           <Faixa />
           <Faixa hidden />

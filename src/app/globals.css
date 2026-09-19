@@ -124,6 +124,11 @@ html.lenis body {
   -webkit-text-stroke: 1.5px var(--brand);
 }
 
+.marquee {
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
 @keyframes marquee {
   to {
     transform: translate3d(-50%, 0, 0);
@@ -138,10 +143,52 @@ html.lenis body {
   animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* No celular cabe pouca marca por vez; a volta completa precisa ser mais rápida. */
+@media (max-width: 767px) {
   .marquee-track {
+    animation-duration: 30s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sem animação a faixa ficava parada mostrando uma única marca cortada.
+     Vira uma lista estática que cabe na tela, sem a segunda cópia e sem o véu das pontas. */
+  .marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  /* A pista deixa de ser uma faixa horizontal: vira bloco, e a lista de marcas
+     quebra em linhas dentro da largura da tela. */
+  .marquee-track {
+    display: block;
+    width: auto;
     animation: none;
   }
+
+  .marquee-track > div {
+    display: flex;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.75rem;
+  }
+
+  .marquee-track > [aria-hidden="true"] {
+    display: none;
+  }
+
+  .marquee-track span {
+    font-size: clamp(1.75rem, 6vw, 3rem);
+  }
+}
+
+/* Sem JavaScript (ou se o pacote falhar), o conteúdo animado ficaria invisível,
+   porque a entrada começa em opacity 0. Aqui ele aparece direto. */
+.sem-js [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
 }
 
 .no-scrollbar {
